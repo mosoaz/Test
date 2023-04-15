@@ -1,0 +1,125 @@
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Main {
+
+    static Scanner scan = new Scanner(System.in);
+
+    public static String calc(String input) {
+
+        String[] result = input.split(" ");
+
+        int op1 = 0;
+        int op2 = 0;
+        int op3 = 0;
+        int op4 = 0;
+        int op5 = 0;
+        int op6 = 0;
+        String op = " ";
+
+        String[] arab = {"1","2","3","4","5","6","7","8","9","10"};
+        String[] rome = {"I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L","LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX","LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX","LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX","LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC","XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C"};
+
+        for(int i = 0; i < 10; i++) {
+            if (result[0].equals(arab[i])) {
+                op1 = i+1;
+            }
+        }
+        for(int i = 0; i < 10; i++) {
+            if (result[2].equals(arab[i])) {
+                op2 = i+1;
+            }
+        }
+        for(int i = 0; i < 10; i++) {
+            if (result[0].equals(rome[i])) {
+                op3 = i+1;
+            }
+        }
+        for(int i = 0; i < 10; i++) {
+            if (result[2].equals(rome[i])) {
+                op4 = i+1;
+            }
+        }
+
+        if (result.length > 3 || (!result[1].equals("+") && !result[1].equals("-") && !result[1].equals("*") && !result[1].equals("/"))) {
+            try {
+                throw new IOException();
+            } catch (IOException e) {
+                System.out.println("throws Exception //т.к. формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
+            }
+        }
+        if ((op1 > 0 | op2 > 0) && (op3 > 0 | op4 > 0)) {
+            try {
+                throw new IOException();
+            } catch (IOException e) {
+                System.out.println("throws Exception //т.к. используются одновременно разные системы счисления");
+            }
+        }
+
+        switch (result[1]) {
+            case "+":
+                op = result[1];
+                break;
+            case "-":
+                op = result[1];
+                break;
+            case "/":
+                op = result[1];
+                break;
+            case "*":
+                op = result[1];
+                break;
+        }
+
+        if (op1 > 0 && op1 < 11 && op2 > 0 && op2 < 11 && op.equals("+") && result.length == 3) {
+            System.out.println(op1 + op2);
+        }
+        if (op1 > 0 && op1 < 11 && op2 > 0 && op2 < 11 && op.equals("-") && result.length == 3) {
+            System.out.println(op1 - op2);
+        }
+        if (op1 > 0 && op1 < 11 && op2 > 0 && op2 < 11 && op.equals("*") && result.length == 3) {
+            System.out.println(op1 * op2);
+        }
+        if (op1 > 0 && op1 < 11 && op2 > 0 && op2 < 11 && op.equals("/") && result.length == 3) {
+            System.out.println(op1 / op2);
+        }
+        if (op3 > 0 && op3 < 11 && op4 > 0 && op4 < 11 && op.equals("+") && result.length == 3) {
+            op5 = op3 + op4;
+            op6 = 1;
+        }
+        if (op3 > 0 && op3 < 11 && op4 > 0 && op4 < 11 && op.equals("-") && result.length == 3) {
+            op5 = op3 - op4;
+            op6 = 1;
+        }
+        if (op3 > 0 && op3 < 11 && op4 > 0 && op4 < 11 && op.equals("*") && result.length == 3) {
+            op5 = op3 * op4;
+            op6 = 1;
+        }
+        if (op3 > 0 && op3 < 11 && op4 > 0 && op4 < 11 && op.equals("/") && result.length == 3) {
+            op5 = op3 / op4;
+            op6 = 1;
+        }
+
+        if (op6 > 0) {
+            if (op5 > 0) {
+                System.out.println(rome[op5 - 1]);
+            } else {
+                try {
+                    throw new IOException();
+                } catch (IOException e) {
+                    System.out.println("throws Exception //т.к. в римской системе нет чисел < I");
+                }
+            }
+        }
+
+        return (result[0]);
+    }
+
+    public static void main(String[] args) {
+         try {
+            calc(scan.nextLine());
+        } catch (ArrayIndexOutOfBoundsException e) {
+             System.out.println("throws Exception //т.к. строка не является математической операцией");
+        }
+    }
+}
